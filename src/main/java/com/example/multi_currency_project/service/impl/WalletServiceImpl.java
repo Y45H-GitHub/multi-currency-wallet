@@ -41,12 +41,23 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public void deposit(UUID walletId) {
+    @Transactional
+    public void deposit(UUID walletId, BigDecimal amount) {
+//         find the wallet by id if there
+        if(amount==null||amount.compareTo(BigDecimal.ZERO)<=0){
+            throw new IllegalArgumentException("Deposit amount must be positive");
+        }
+        Wallet wallet = walletRepo.findById(walletId).orElseThrow(()->new IllegalArgumentException("Wallet not found"));
 
+        BigDecimal newBalance = wallet.getBalance().add(amount);
+        wallet.setBalance(newBalance);
     }
 
     @Override
     public WalletBalanceResponse balance(UUID walletId) {
-        return null;
+        Wallet wallet = walletRepo.findById(walletId).orElseThrow(()->new IllegalArgumentException("Wallet not found"));
+        WalletBalanceResponse response = new WalletBalanceResponse();
+        response.setBalance(wallet.getBalance());
+        return response;
     }
 }
