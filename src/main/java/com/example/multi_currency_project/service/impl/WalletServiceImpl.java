@@ -63,7 +63,6 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public WalletBalanceResponse balance(UUID walletId) {
         Wallet wallet = walletRepo.findById(walletId)
                 .orElseThrow(() -> new WalletNotFoundException("Wallet not found with ID: " + walletId));
