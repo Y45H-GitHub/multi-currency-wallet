@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: multi-currency-wallet-api
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: render
+      - key: PORT
+        value: 8080
+    healthCheckPath: /actuator/health
+
+databases:
+  - name: multi-currency-wallet-db
+    databaseName: multi_currency_wallet
+    user: wallet_user
+    plan: free
+    region: oregon

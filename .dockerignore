@@ -3,6 +3,7 @@ target/
 .git/
 .gitignore
 README.md
+DEPLOYMENT.md
 Dockerfile
 .dockerignore
 
@@ -24,3 +25,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Local application properties (keep render and docker configs)
+application-local.properties
